@@ -1,5 +1,5 @@
-import { FC, useEffect, useState } from "react";
-import { CartItem, clearCart, useCartItemCount, getCartItems } from "../lib/cart";
+import { FC } from "react";
+import { clearCart, useCartItemCount, useCartItems } from "../lib/cart";
 import styles from "./cart.module.css";
 import { Layout } from "../components/Layout";
 import { useRouter } from "next/router";
@@ -7,12 +7,7 @@ import { useRouter } from "next/router";
 const CartPage: FC = () => {
   const router = useRouter();
   const { cartItemCount } = useCartItemCount();
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
-  const amount = cartItems.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
-
-  useEffect(() => {
-    setCartItems(getCartItems());
-  }, []);
+  const { cartItems, amount } = useCartItems();
 
   const handleSubmitOrder = () => {
     alert("注文しました");
