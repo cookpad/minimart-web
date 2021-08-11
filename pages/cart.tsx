@@ -1,18 +1,14 @@
 import { FC, useEffect, useState } from "react";
-import { CartItem, clearCart, getCartItemCount, getCartItems } from "../lib/cart";
+import { CartItem, clearCart, useCartItemCount, getCartItems } from "../lib/cart";
 import styles from "./cart.module.css";
 import { Layout } from "../components/Layout";
 import { useRouter } from "next/router";
 
 const CartPage: FC = () => {
   const router = useRouter();
-  const [cartItemCount, setCartItemCount] = useState(0);
+  const { cartItemCount } = useCartItemCount();
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const amount = cartItems.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
-
-  useEffect(() => {
-    setCartItemCount(getCartItemCount());
-  }, []);
 
   useEffect(() => {
     setCartItems(getCartItems());

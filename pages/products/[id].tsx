@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { getProduct, Product } from "../../lib/product";
-import { addToCart, getCartItemCount } from "../../lib/cart";
+import { addToCart, useCartItemCount } from "../../lib/cart";
 import { Layout } from "../../components/Layout";
 import styles from "./[id].module.css";
 
@@ -9,16 +9,12 @@ const ProductPage: FC = () => {
   const router = useRouter();
   const id = router.query.id ? String(router.query.id) : null;
   const [product, setProduct] = useState<Product | null>(null);
-  const [cartItemCount, setCartItemCount] = useState(0);
+  const { cartItemCount, updateCartItemCount } = useCartItemCount();
 
   const handleAddToCart = (product: Product): void => {
     addToCart(product);
-    setCartItemCount(getCartItemCount());
+    updateCartItemCount();
   };
-
-  useEffect(() => {
-    setCartItemCount(getCartItemCount());
-  }, []);
 
   useEffect(() => {
     if (id === null) return;
