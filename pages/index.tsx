@@ -16,7 +16,6 @@ const TopPage: FC = () => {
       <ul className={styles.list}>
         {products.map((product) => (
           <li key={product.id} className={styles.listItem}>
-            {/* このリンク先はないので新規ページを作る */}
             <Link href={`/products/${product.id}`}>
               <a className={styles.link}>
                 <div className={styles.imageWrapper}>
