@@ -25,6 +25,24 @@ export async function listProducts(): Promise<Product[]> {
   return data.products;
 }
 
+const searchProductsQuery = `
+  query searchProducts($keyword: String!) {
+    searchProducts(query: $keyword) {
+      id
+      name
+      description
+      price
+      imageUrl
+    }
+  }
+`;
+
+export async function searchProducts(keyword: string): Promise<Product[]> {
+  if (keyword === "") return [];
+  const data = await graphqlRequest({ query: searchProductsQuery, variables: { keyword } });
+  return data.searchProducts;
+}
+
 const getProductQuery = `
   query getProduct($id: ID!) {
     product(id: $id) {

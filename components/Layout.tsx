@@ -17,7 +17,9 @@ export const Layout: FC<Props> = ({ cartItemCount, children }) => {
         <h1 className={styles.title}>
           <Link href="/">Mini Mart</Link>
         </h1>
-        <div className={styles.cart}>
+        <div className={styles.menu}>
+          <Link href="/search">🔎</Link>
+          <span> | </span>
           <Link href="/user">⚙️</Link>
           <span> | </span>
           <Link href="/cart">
