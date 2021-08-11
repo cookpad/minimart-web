@@ -3,6 +3,7 @@ import { clearCart, useCartItemCount, useCartItems } from "../lib/cart";
 import styles from "./cart.module.css";
 import { Layout } from "../components/Layout";
 import { useRouter } from "next/router";
+import { createOrder } from "../lib/order";
 
 const CartPage: FC = () => {
   const router = useRouter();
@@ -19,9 +20,9 @@ const CartPage: FC = () => {
     updateCartItemCount();
   };
 
-  const handleSubmitOrder = () => {
-    alert("注文しました");
-    router.push("/");
+  const handleSubmitOrder = async () => {
+    const order = await createOrder(cartItems);
+    router.push(`/orders/${order.id}`);
     clearCart();
   };
 
