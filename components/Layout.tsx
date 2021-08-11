@@ -18,6 +18,8 @@ export const Layout: FC<Props> = ({ cartItemCount, children }) => {
           <Link href="/">Mini Mart</Link>
         </h1>
         <div className={styles.cart}>
+          <Link href="/user">⚙️</Link>
+          <span> | </span>
           <Link href="/cart">
             <a>
               <span>🛒</span>
