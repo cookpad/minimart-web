@@ -18,7 +18,6 @@ export const Layout: FC<Props> = ({ cartItemCount, children }) => {
           <Link href="/">Mini Mart</Link>
         </h1>
         <div className={styles.cart}>
-          {/* このリンク先はないので新規ページを作る */}
           <Link href="/cart">
             <a>
               <span>🛒</span>

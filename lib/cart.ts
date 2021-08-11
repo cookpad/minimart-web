@@ -2,7 +2,7 @@ import { Product } from "./product";
 
 const STORAGE_KEY = "minimart:cart";
 
-type CartItem = {
+export type CartItem = {
   product: Product;
   quantity: number;
 };
@@ -24,4 +24,12 @@ export function addToCart(product: Product): void {
 export function getCartItemCount(): number {
   const cartItems: CartItem[] = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
   return cartItems.reduce((sum, item) => sum + item.quantity, 0);
+}
+
+export function getCartItems(): CartItem[] {
+  return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+}
+
+export function clearCart(): void {
+  localStorage.removeItem(STORAGE_KEY);
 }
