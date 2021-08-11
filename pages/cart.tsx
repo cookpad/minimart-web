@@ -6,8 +6,18 @@ import { useRouter } from "next/router";
 
 const CartPage: FC = () => {
   const router = useRouter();
-  const { cartItemCount } = useCartItemCount();
-  const { cartItems, amount } = useCartItems();
+  const { cartItemCount, updateCartItemCount } = useCartItemCount();
+  const { cartItems, updateQuantity, amount } = useCartItems();
+
+  const handleIncrementItem = (item: typeof cartItems[number]) => {
+    updateQuantity(item, (q) => q + 1);
+    updateCartItemCount();
+  };
+
+  const handleDecrementItem = (item: typeof cartItems[number]) => {
+    updateQuantity(item, (q) => (q > 0 ? q - 1 : q));
+    updateCartItemCount();
+  };
 
   const handleSubmitOrder = () => {
     alert("注文しました");
@@ -25,7 +35,15 @@ const CartPage: FC = () => {
               <div>
                 {item.product.name} {item.product.price}円
               </div>
-              <div className={styles.quantity}>{item.quantity}個</div>
+              <div className={styles.quantity}>
+                <span>{item.quantity}個</span>
+                <button onClick={() => handleIncrementItem(item)} className={styles.quantityBtn}>
+                  +
+                </button>
+                <button onClick={() => handleDecrementItem(item)} className={styles.quantityBtn}>
+                  -
+                </button>
+              </div>
             </div>
           </li>
         ))}
