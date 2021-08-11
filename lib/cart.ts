@@ -20,3 +20,8 @@ export function addToCart(product: Product): void {
 
   localStorage.setItem(STORAGE_KEY, JSON.stringify(cartItems));
 }
+
+export function getCartItemCount(): number {
+  const cartItems: CartItem[] = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+  return cartItems.reduce((sum, item) => sum + item.quantity, 0);
+}
