@@ -1,0 +1,35 @@
+.imageWrapper {
+  width: 30%;
+}
+
+.image {
+  width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+}
+
+.price {
+  color: black;
+  font-size: 15px;
+}
+
+.description {
+  font-size: 15px;
+}
+
+.orderButton {
+  color: white;
+  background-color: tomato;
+  border-radius: 100vh;
+  border-style: none;
+  font-size: 20px;
+  margin: auto;
+}
+
+.buttonWrapper {
+  text-align: center;
+}
+
+.priceSum {
+  text-align: right;
+}
