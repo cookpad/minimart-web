@@ -1,0 +1,18 @@
+.full {
+    width: 100%;
+}
+
+.container {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.addCartButton {
+    background-color: tomato;
+    color: white;
+    font-size: 1rem;
+    padding: 10px;
+    border: 0;
+    border-radius: 10px;
+    width: 100%;
+}
