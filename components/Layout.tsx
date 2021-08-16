@@ -3,9 +3,11 @@ import Head from "next/head";
 import Link from "next/link";
 import styles from "./Layout.module.css";
 
-type Props = {};
+type Props = {
+  cartItemCnt: number;
+};
 
-export const Layout: FC<Props> = ({ children }) => {
+export const Layout: FC<Props> = ({ cartItemCnt, children }) => {
   return (
     <div>
       <Head>
@@ -20,7 +22,7 @@ export const Layout: FC<Props> = ({ children }) => {
           <Link href="/cart">
             <a>
               <span>🛒</span>
-              <span className={styles.cartCount}>({/* ここにカートに入っているアイテム数を入れる */})</span>
+              <span className={styles.cartCount}>({cartItemCnt})</span>
             </a>
           </Link>
         </div>
