@@ -46,7 +46,30 @@ export const useCartItems = () => {
     setCartItems(newCartItems);
   };
 
-  return { cartItems, addToCart };
+  const increment = (id: string) => {
+    const newCartItems = cartItems.concat();
+    for (let i = 0; i < newCartItems.length; i++) {
+      if (newCartItems[i].product.id === id) {
+        newCartItems[i].quantity++;
+        setCartItems(newCartItems);
+        return;
+      }
+    }
+  };
+  const decrement = (id: string) => {
+    const newCartItems = cartItems.concat();
+    for (let i = 0; i < newCartItems.length; i++) {
+      if (newCartItems[i].product.id === id) {
+        if (newCartItems[i].quantity > 0) {
+          newCartItems[i].quantity--;
+        }
+        setCartItems(newCartItems);
+        return;
+      }
+    }
+  };
+
+  return { cartItems, addToCart, increment, decrement };
 };
 
 export const clearCart = () => {

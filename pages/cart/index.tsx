@@ -4,7 +4,7 @@ import { Layout } from "../../components/Layout";
 import { clearCart, useCartItems } from "../../lib/cartitem";
 
 const TopPage: FC = () => {
-  const { cartItems } = useCartItems();
+  const { cartItems, increment, decrement } = useCartItems();
   const cartItemCnt = cartItems.reduce((sum, e) => sum + e.quantity, 0);
   const priceSum = cartItems.reduce((sum, e) => sum + e.product.price * e.quantity, 0);
 
@@ -27,6 +27,22 @@ const TopPage: FC = () => {
                 {cartItem.product.name} {cartItem.product.price}円
               </div>
               <div>{cartItem.quantity}個</div>
+              <div>
+                <button
+                  onClick={() => {
+                    increment(cartItem.product.id);
+                  }}
+                >
+                  +
+                </button>
+                <button
+                  onClick={() => {
+                    decrement(cartItem.product.id);
+                  }}
+                >
+                  -
+                </button>
+              </div>
             </td>
           </tr>
         ))}
