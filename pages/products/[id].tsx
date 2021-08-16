@@ -1,47 +1,18 @@
 import { FC, useState, useEffect } from "react";
 import styles from "./product.module.css";
-import { Product, CartItem } from "../../lib/product";
+import { Product } from "../../lib/product";
 import { Layout } from "../../components/Layout";
 import { getProduct } from "../../lib/product";
 import { useRouter } from "next/dist/client/router";
-
-const CART_ITEM_STORAGE_KEY = "minimart-cart-item";
-const addToCart = (product: Product) => {
-  const strCurrentCartItems = localStorage.getItem(CART_ITEM_STORAGE_KEY);
-  // 空の場合
-  if (strCurrentCartItems === null) {
-    const cartItem: CartItem = {
-      product: product,
-      quantity: 1,
-    };
-    const cartItems = [cartItem];
-    localStorage.setItem(CART_ITEM_STORAGE_KEY, JSON.stringify(cartItems));
-
-    // 空ではない場合
-  } else {
-    const currentCartItems = JSON.parse(strCurrentCartItems) as CartItem[];
-    // 同じプロダクトが既にある場合
-    for (let i = 0; i < currentCartItems.length; i++) {
-      if (currentCartItems[i].product.id === product.id) {
-        currentCartItems[i].quantity++;
-        localStorage.setItem(CART_ITEM_STORAGE_KEY, JSON.stringify(currentCartItems));
-        return;
-      }
-    }
-    // 同じプロダクトが既にない場合
-    const newCartItem: CartItem = {
-      product: product,
-      quantity: 1,
-    };
-    currentCartItems.push(newCartItem);
-    localStorage.setItem(CART_ITEM_STORAGE_KEY, JSON.stringify(currentCartItems));
-  }
-};
+import { useCartItems } from "../../lib/cartitem";
 
 const ProductPage: FC = () => {
   const router = useRouter();
   const productId = router.query.id;
   const [product, setProduct] = useState<Product | null>(null);
+  const { cartItems, addToCart } = useCartItems();
+
+  const cartItemCnt = cartItems.reduce((sum, e) => sum + e.quantity, 0);
 
   useEffect(() => {
     if (typeof productId === "string") {
@@ -51,13 +22,13 @@ const ProductPage: FC = () => {
 
   if (product === null) {
     return (
-      <Layout>
+      <Layout cartItemCnt={cartItemCnt}>
         <h3>Loading ...</h3>
       </Layout>
     );
   } else {
     return (
-      <Layout>
+      <Layout cartItemCnt={cartItemCnt}>
         <img className={styles.image} src={product.imageUrl} alt={`${product.name}の写真`} />
         <h3 className={styles.productName}>{product.name}</h3>
         <div className={styles.price}>{product.price}</div>

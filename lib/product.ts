@@ -8,11 +8,6 @@ export type Product = {
   imageUrl: string;
 };
 
-export type CartItem = {
-  product: Product; // 商品
-  quantity: number; // 個数
-};
-
 const listProductsQuery = `
   query listProducts {
     products {

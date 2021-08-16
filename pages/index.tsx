@@ -3,16 +3,19 @@ import Link from "next/link";
 import styles from "./index.module.css";
 import { listProducts, Product } from "../lib/product";
 import { Layout } from "../components/Layout";
+import { useCartItems } from "../lib/cartitem";
 
 const TopPage: FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
+  const { cartItems } = useCartItems();
+  const cartItemCnt = cartItems.reduce((sum, e) => sum + e.quantity, 0);
 
   useEffect(() => {
     listProducts().then((products) => setProducts(products));
   }, []);
 
   return (
-    <Layout>
+    <Layout cartItemCnt={cartItemCnt}>
       <ul className={styles.list}>
         {products.map((product) => (
           <li key={product.id} className={styles.listItem}>
