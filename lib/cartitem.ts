@@ -1,3 +1,4 @@
+import exp from "constants";
 import { useEffect, useState } from "react";
 import { Product } from "./product";
 
@@ -6,8 +7,8 @@ export type CartItem = {
   quantity: number; // 個数
 };
 
+const CART_ITEM_STORAGE_KEY = "minimart-cart-item";
 export const useCartItems = () => {
-  const CART_ITEM_STORAGE_KEY = "minimart-cart-item";
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const getCartItems = (): CartItem[] => {
     const strCurrentCartItems = localStorage.getItem(CART_ITEM_STORAGE_KEY);
@@ -46,4 +47,8 @@ export const useCartItems = () => {
   };
 
   return { cartItems, addToCart };
+};
+
+export const clearCart = () => {
+  localStorage.setItem(CART_ITEM_STORAGE_KEY, JSON.stringify([]));
 };
